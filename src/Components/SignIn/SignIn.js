@@ -13,7 +13,7 @@ const SignIn = () => {
                 <FcGoogle className="googleIcon"/>
                 <h1>Continue with Google</h1>
                 </div>
-                <p>or</p>
+                <p className="description">or</p>
 
                 <form className="loginForm">
 

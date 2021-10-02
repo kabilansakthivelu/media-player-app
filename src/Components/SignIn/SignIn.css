@@ -16,6 +16,9 @@
 .googleIcon{
     @apply text-xl md:text-2xl
 }
+.description{
+    @apply md:text-xl
+}
 .loginForm{
     @apply flex flex-col text-left leading-loose lg:w-3/4 mx-auto
 }
