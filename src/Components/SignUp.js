@@ -1,52 +1,52 @@
-import React, {useContext} from 'react';
-import {ValuesContext} from '../../App';
-import {FcGoogle} from 'react-icons/fc';
+import React,{useContext, useRef} from 'react';
 import {AiOutlineMail, AiOutlineLock} from 'react-icons/ai';
-import {useHistory} from 'react-router-dom';
+import {FaUser} from 'react-icons/fa';
 import firebase from 'firebase/compat/app';
-import {auth, db} from '../../firebase';
-import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './SignIn.css';
+import {db, auth} from '../firebase';
+import {useHistory} from 'react-router-dom';
+import {ValuesContext} from '../App';
+import {toast} from 'react-toastify';
+import './SignIn/SignIn.css';
 
 toast.configure();
 
-const SignIn = () => {
+const SignUp = () => {
 
     const {refEmail, refPassword} = useContext(ValuesContext);
+
+    const refUsername = useRef();
 
     const history = useHistory();
 
     let userFirstName = "";
 
-    const googleSignIn = async() =>{
-        let provider = new firebase.auth.GoogleAuthProvider();
-        await firebase.auth().signInWithPopup(provider);
-        history.push("/");
-        const name = auth.currentUser.displayName.split(" ");
-        const firstName = name[0];
-        toast.success(`Hi ${firstName}, Welcome to the World of Music!!`, {position: toast.POSITION.TOP_CENTER})
-    }
-
-    const signIn = async(e) =>{
+    const signup = async(e) =>{
         e.preventDefault();
+        const username = refUsername.current.value;
         const email = refEmail.current.value;
         const password = refPassword.current.value;
+        if(username[0]=== " "){
+            toast.error("Please don't start with 'SPACE'. Enter a valid username.", {position: toast.POSITION.TOP_CENTER});
+        }
+        else
+        {
         try{
-            await firebase.auth().signInWithEmailAndPassword(email, password);
+            await firebase.auth().createUserWithEmailAndPassword(email, password);
+            await db.collection('users').doc(auth.currentUser.uid).set({name:username});
             await db.collection('users').doc(auth.currentUser.uid).get().then((snapshot)=>{
                 const userDetails = snapshot.data();
                 const userName = userDetails.name;;
                 const userName1 = userName.split(" ");
                 userFirstName = userName1[0];
-            })
+            });
             history.push("/");
-            toast.success(`Welcome back ${userFirstName} to the World of Music!!`, {position: toast.POSITION.TOP_CENTER})
+            toast.success(`Hi ${userFirstName}, Welcome to the World of Music !!`, {position: toast.POSITION.TOP_CENTER});
         }
         catch(error){
             let error1 = error.message.split(":");
             let error2 = error1[1].split("(");
             toast.error(error2[0], {position: toast.POSITION.TOP_CENTER});
+        }
         }
     }
 
@@ -55,13 +55,14 @@ const SignIn = () => {
             <div className="signInContent">
                 <h1 className="title">Music World</h1>
                 <h1 className="subTitle">Explore the world of music</h1>
-                <div className="googleSignInDiv" onClick={googleSignIn}>
-                <FcGoogle className="googleIcon"/>
-                <h1>Continue with Google</h1>
-                </div>
-                <p className="description">or</p>
+                <p className="description">Create a new Account</p>
 
-            <form className="loginForm" onSubmit={signIn}>
+            <form className="loginForm" onSubmit={signup}>
+
+            <div className="inputFieldDiv">
+            <FaUser className="inputFieldIcon"/>
+            <input className="inputField" required ref={refUsername} type="text" name="username" id="username" placeholder="Username"/>
+            </div>
 
             <div className="inputFieldDiv">
             <AiOutlineMail className="inputFieldIcon"/>
@@ -74,18 +75,17 @@ const SignIn = () => {
             </div>
 
             <div className="btnSection">
-            <button className="signInBtn">Sign In</button>
-            <button className="registerBtn" onClick={()=>{history.push("/signup")}}>Register</button>
+            <button className="signInBtn">Sign Up</button>
+            <button className="registerBtn" onClick={()=>{history.push("/signin")}}>Sign In</button>
             </div>
 
             </form>
 
             </div>
-            <div className="signInImage">
-                
+            <div className="signInImage"> 
             </div>
         </div>
     )
 }
 
-export default SignIn
+export default SignUp
