@@ -36,10 +36,10 @@ const Navbar = () => {
     return (
         <div className={screen}>
         <h1 className="header">Music World</h1>
-        <div className="icons">
-            <Link to="/"><AiFillHome/></Link>
-            <Link to="/playlists"><BiHeadphone/></Link>
-            <Link to="/favorites"><AiFillHeart/></Link>
+        <div className="navbar-icons">
+            <Link id="1" to="/"><AiFillHome/></Link>
+            <Link id="2" to="/playlists"><BiHeadphone/></Link>
+            <Link id="3" to="/favorites"><AiFillHeart/></Link>
             <AiOutlineLogout onClick={logOut}/>
         </div>
         </div>
