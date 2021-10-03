@@ -4,7 +4,6 @@ import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp';
 import Home from './Components/Home/Home';
 import Playlists from './Components/Playlists/Playlists';
-import Songs from './Components/Songs/Songs';
 import Favorites from './Components/Favorites/Favorites';
 import Error from './Components/Error';
 
@@ -27,9 +26,6 @@ function App() {
         </Route>
         <Route exact path="/">
           <Home/>
-        </Route>
-        <Route path="/songs">
-          <Songs/>
         </Route>
         <Route path="/playlists">
           <Playlists/>
