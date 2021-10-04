@@ -29,7 +29,7 @@ const Home = () => {
             <div className="songsSection">
             <h1 className="sectionTitle">Discover your day</h1>
             <div className="songsDisplay">
-            {songsList.map((song)=>{
+            {songsList && songsList.map((song)=>{
                 return(
                     <div key={song.id} className="singleSong">
                     <img src={song.imageURL} alt="" className="songImage"/>
