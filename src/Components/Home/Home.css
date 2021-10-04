@@ -1,0 +1,24 @@
+.songsSection{
+    @apply bg-gray-700 h-screen pt-4 md:pt-7 lg:pt-10
+}
+.sectionTitle{
+    @apply text-white pl-6 md:pl-28 lg:pl-36 md:text-xl
+}
+.songsDisplay{
+    @apply flex flex-col md:flex-row items-center pl-8 pt-4
+}
+.singleSong{
+    @apply border-2 border-blue-400
+}
+.songImage{
+    @apply w-60 h-32
+}
+.songTitle{
+    @apply text-white text-center md:text-xl
+}
+.songArtist{
+    @apply text-white text-sm text-center
+}
+.songInfo{
+    @apply flex flex-col space-y-1 mt-2 mb-6
+}
