@@ -21,6 +21,8 @@ const Player = (props) => {
 
     useEffect(()=>{
         document.getElementById('playButton').play();
+        document.getElementById('pauseBtn').style.display = "block";
+        document.getElementById('playBtn').style.display = "none";
     },[nowPlaying])
 
     const pauseFn = () =>{
@@ -41,7 +43,6 @@ const Player = (props) => {
         }else{
         setNowPlayingSongId(nowPlayingSongId - 1)
         }
-        console.log(nowPlayingSongId);
     }
 
     const nextTrack = () =>{
@@ -50,7 +51,6 @@ const Player = (props) => {
         }else{
         setNowPlayingSongId(nowPlayingSongId + 1)
         }
-        console.log(nowPlayingSongId);
     }
 
     return (
@@ -64,9 +64,8 @@ const Player = (props) => {
             <img src={nowPlaying.imageURL} alt="" className="playerImage"/>
             <h1 className="playerSongTitle">{nowPlaying.title}</h1>
             <h1 className="playerSongArtist">{nowPlaying.artists}</h1>
-            <audio id="playButton">
-                <source src={nowPlaying.source}/>
-            </audio>
+
+            <audio src={nowPlaying.source} id="playButton"></audio>
 
             <div className="playerIcons">
             <BsSkipBackward className="playerIconsInd" onClick={previousTrack}/>
