@@ -11,7 +11,7 @@
     @apply w-40 h-40 lg:w-48 lg:h-52 rounded-lg cursor-pointer
 }
 .songTitle{
-    @apply text-white text-center md:text-xl
+    @apply text-white text-center text-lg md:text-xl
 }
 .songArtist{
     @apply text-white text-sm text-center

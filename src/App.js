@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp';
@@ -13,10 +13,11 @@ function App() {
 
   const refEmail = useRef();
   const refPassword = useRef();
+  const [showPlayer, setShowPlayer] = useState(false);
 
   return (
     <Router>
-     <ValuesContext.Provider value={{refEmail, refPassword}}>
+     <ValuesContext.Provider value={{refEmail, refPassword, showPlayer, setShowPlayer}}>
       <Switch>
         <Route path="/signin">
           <SignIn/>

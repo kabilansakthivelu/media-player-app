@@ -1,18 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Navbar from '../Navbar/Navbar';
 import {db, auth} from '../../firebase';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import SignIn from '../SignIn/SignIn';
 import Player from '../Player/Player';
+import {ValuesContext} from '../../App';
 import './Home.css';
 
 const Home = () => {
 
     const [user] = useAuthState(auth);
 
-    const [songsList, setSongsList] = useState();
+    const {showPlayer, setShowPlayer} = useContext(ValuesContext);
 
-    const [showPlayer, setShowPlayer] = useState(false);
+    const [songsList, setSongsList] = useState();
 
     const [nowPlayingSongId, setNowPlayingSongId] = useState();
 
