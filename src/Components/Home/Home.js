@@ -18,6 +18,7 @@ const Home = () => {
     const [nowPlayingSongId, setNowPlayingSongId] = useState();
 
     useEffect(()=>{
+        setShowPlayer(false);
         db.collection('songs').onSnapshot((snapshot)=>{
         const arr = [];
         snapshot.forEach((doc)=>{
@@ -53,7 +54,7 @@ const Home = () => {
             })}
             </div>
             </div>
-            {showPlayer && <Player songsList={songsList} nowPlayingSongId={nowPlayingSongId}/>}
+            {showPlayer && <Player songsList={songsList} nowPlayingSongId={nowPlayingSongId} setNowPlayingSongId={setNowPlayingSongId}/>}
             </div>
             )
             :

@@ -19,3 +19,12 @@
 .playerSongArtist{
     @apply text-white text-lg text-center
 }
+.playerIcons{
+    @apply flex items-center justify-center space-x-5 mt-4 text-2xl
+}
+.playerIconsInd{
+    @apply cursor-pointer 
+}
+.playBtn{
+    @apply hidden cursor-pointer
+}
