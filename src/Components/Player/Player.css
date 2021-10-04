@@ -1,0 +1,15 @@
+.musicPlayer{
+    @apply fixed top-0 right-0 w-2/6 lg:w-3/12 h-full bg-gray-500 text-white
+}
+.playerTitle{
+    @apply pl-6 text-center md:text-xl mt-10
+}
+.playerImage{
+    @apply w-40 h-40 lg:w-48 lg:h-52 rounded-lg mx-auto mt-7
+}
+.playerSongTitle{
+    @apply text-white text-center my-2 md:text-xl font-bold
+}
+.playerSongArtist{
+    @apply text-white text-lg text-center
+}

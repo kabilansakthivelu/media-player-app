@@ -1,14 +1,14 @@
 .songsSection{
-    @apply bg-gray-700 h-full md:h-screen pt-4 md:pt-7 lg:pt-10 mb-12 md:mb-0
+    @apply bg-gray-700 h-full w-full lg:h-screen pt-4 md:pt-7 lg:pt-10 mb-12 md:mb-0
 }
 .sectionTitle{
     @apply text-white pl-6 md:pl-28 lg:pl-36 md:text-xl mb-4
 }
 .songsDisplay{
-    @apply flex flex-col md:flex-row items-center md:pl-8 pt-4 md:justify-start md:space-x-5
+    @apply flex flex-col md:flex-row md:flex-wrap items-center md:pl-8 pt-4 md:justify-start md:space-x-4
 }
 .songImage{
-    @apply w-52 h-40 rounded-lg cursor-pointer
+    @apply w-40 h-40 lg:w-48 lg:h-52 rounded-lg cursor-pointer
 }
 .songTitle{
     @apply text-white text-center md:text-xl
