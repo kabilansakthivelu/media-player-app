@@ -34,13 +34,15 @@ const Home = () => {
     }
 
     useEffect(()=>{
+        if(user){
         if(showPlayer){
             document.getElementById('songsSection').style.width = "73%";
             document.getElementById('songDisplay').style.justifyContent = "space-around"
         }
         else{
-            //document.getElementById('songsSection').style.width = "100%";
-            //document.getElementById('songDisplay').style.justifyContent = "space-around"
+            document.getElementById('songsSection').style.width = "100%";
+            document.getElementById('songDisplay').style.justifyContent = "space-around"
+        }
         }
     },[showPlayer])
 

@@ -2,10 +2,10 @@
     @apply fixed bottom-0 h-12 sm:h-16 bg-gray-500 w-full 
 }
 .largeScreen{
-    @apply float-left h-screen w-20 bg-gray-500 lg:w-28
+    @apply float-left h-full fixed w-20 bg-gray-500 lg:w-28
 }
 .header{
-    @apply hidden md:block text-white text-2xl text-center pt-4
+    @apply hidden md:block text-white text-xl lg:text-2xl text-center pt-4
 }
 .navbar-icons{
     @apply flex md:flex-col md:items-center md:space-y-10 lg:space-y-12 md:mt-16 lg:mt-28 lg:text-3xl justify-between p-4 sm:p-6 text-white text-xl sm:text-2xl cursor-pointer
