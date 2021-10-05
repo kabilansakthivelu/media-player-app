@@ -11,7 +11,7 @@
     @apply mx-auto text-xl
 }
 .playerImage{
-    @apply w-40 h-40 lg:w-48 lg:h-52 rounded-lg mx-auto mt-7
+    @apply w-40 h-44 lg:w-48 lg:h-52 rounded-lg mx-auto mt-7
 }
 .playerSongTitle{
     @apply text-white text-center my-2 md:text-xl font-bold
@@ -20,11 +20,14 @@
     @apply text-white text-lg text-center
 }
 .playerIcons{
-    @apply flex items-center justify-center space-x-5 mt-4 text-2xl
+    @apply flex items-center justify-center space-x-7 mt-4 text-2xl
 }
 .playerIconsInd{
     @apply cursor-pointer 
 }
 .playBtn{
     @apply hidden cursor-pointer
+}
+.nextUp{
+    @apply text-center mt-4 md:text-xl font-bold
 }

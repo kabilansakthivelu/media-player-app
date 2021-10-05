@@ -1,7 +1,7 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {BiArrowBack} from 'react-icons/bi';
-import {FiPause, FiPlay} from 'react-icons/fi';
-import {BsSkipBackward, BsSkipForward} from 'react-icons/bs';
+import {FaPlay, FaPause} from 'react-icons/fa';
+import {AiFillStepBackward, AiFillStepForward} from 'react-icons/ai';
 import {ValuesContext} from '../../App';
 import './Player.css';
 
@@ -12,6 +12,12 @@ const Player = (props) => {
     let {songsList, nowPlayingSongId, setNowPlayingSongId} = props;
 
     let nowPlaying = [];
+
+    let nextUpSong = [];
+
+    let nextUpFinder;
+
+    const [nextUpTitle, setNextUpTitle] = useState();
      
     if(songsList !== undefined){
      nowPlaying = songsList.find((song)=>{
@@ -25,6 +31,21 @@ const Player = (props) => {
         document.getElementById('pauseBtn').style.display = "block";
         document.getElementById('playBtn').style.display = "none";
         document.getElementById('playButton').addEventListener('ended', nextTrack);
+        if(nowPlayingSongId === 12){
+            nextUpFinder = 1;
+            nextUpSong = songsList.find((song)=>{
+            return song.id === nextUpFinder;
+            })
+            setNextUpTitle(nextUpSong.title);
+        }
+        else
+        {
+            nextUpFinder = nowPlayingSongId+1;
+            nextUpSong = songsList.find((song)=>{
+            return song.id === nextUpFinder;
+            })
+            setNextUpTitle(nextUpSong.title);
+        }
         }
     },[nowPlaying])
 
@@ -71,11 +92,13 @@ const Player = (props) => {
             <audio src={nowPlaying.source} id="playButton" controls></audio>
 
             <div className="playerIcons">
-            <BsSkipBackward className="playerIconsInd" onClick={previousTrack}/>
-            <FiPause className="playerIconsInd" id="pauseBtn" onClick={pauseFn}/>
-             <FiPlay className="playBtn" id="playBtn" onClick={playFn}/>
-            <BsSkipForward className="playerIconsInd" onClick={nextTrack}/>
+            <AiFillStepBackward className="playerIconsInd" onClick={previousTrack}/>
+            <FaPause className="playerIconsInd" id="pauseBtn" onClick={pauseFn}/>
+             <FaPlay className="playBtn" id="playBtn" onClick={playFn}/>
+            <AiFillStepForward className="playerIconsInd" onClick={nextTrack}/>
             </div>
+
+            <h1 className="nextUp">Next up: {nextUpTitle}</h1>
 
         </div>)
         :
