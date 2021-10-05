@@ -5,7 +5,7 @@
     @apply text-white pl-6 md:pl-28 lg:pl-36 md:text-xl mb-4
 }
 .songsDisplay{
-    @apply flex flex-col md:flex-row md:flex-wrap items-center md:pl-8 pt-4 md:justify-start md:space-x-4
+    @apply flex flex-col md:flex-row md:flex-wrap items-center pt-4 md:justify-evenly
 }
 .songImage{
     @apply w-40 h-40 lg:w-48 lg:h-52 rounded-lg cursor-pointer

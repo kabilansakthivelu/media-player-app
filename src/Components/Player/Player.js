@@ -7,7 +7,7 @@ import './Player.css';
 
 const Player = (props) => {
 
-    const {setShowPlayer} = useContext(ValuesContext);
+    const {showPlayer, setShowPlayer} = useContext(ValuesContext);
 
     let {songsList, nowPlayingSongId, setNowPlayingSongId} = props;
 
@@ -20,9 +20,12 @@ const Player = (props) => {
     }
 
     useEffect(()=>{
+        if(showPlayer){
         document.getElementById('playButton').play();
         document.getElementById('pauseBtn').style.display = "block";
         document.getElementById('playBtn').style.display = "none";
+        document.getElementById('playButton').addEventListener('ended', nextTrack);
+        }
     },[nowPlaying])
 
     const pauseFn = () =>{
@@ -65,7 +68,7 @@ const Player = (props) => {
             <h1 className="playerSongTitle">{nowPlaying.title}</h1>
             <h1 className="playerSongArtist">{nowPlaying.artists}</h1>
 
-            <audio src={nowPlaying.source} id="playButton"></audio>
+            <audio src={nowPlaying.source} id="playButton" controls></audio>
 
             <div className="playerIcons">
             <BsSkipBackward className="playerIconsInd" onClick={previousTrack}/>

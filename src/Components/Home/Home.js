@@ -33,14 +33,25 @@ const Home = () => {
         setNowPlayingSongId(id);
     }
 
+    useEffect(()=>{
+        if(showPlayer){
+            document.getElementById('songsSection').style.width = "73%";
+            document.getElementById('songDisplay').style.justifyContent = "space-around"
+        }
+        else{
+            //document.getElementById('songsSection').style.width = "100%";
+            //document.getElementById('songDisplay').style.justifyContent = "space-around"
+        }
+    },[showPlayer])
+
     return (
         <div>
             {user ? (
             <div> 
             <Navbar/>
-            <div className="songsSection">
+            <div className="songsSection" id="songsSection">
             <h1 className="sectionTitle">Discover your day</h1>
-            <div className="songsDisplay">
+            <div className="songsDisplay" id="songDisplay">
             {songsList && songsList.map((song)=>{
                 return(
                     <div key={song.id} className="singleSong">

@@ -1,5 +1,5 @@
 .musicPlayer{
-    @apply fixed top-0 right-0 w-full md:w-2/6 lg:w-3/12 h-full bg-gray-500 text-white
+    @apply fixed top-0 right-0 w-full md:w-2/7 lg:w-2/7 h-full bg-gray-500 text-white
 }
 .playerHeader{
     @apply flex items-center mt-10
