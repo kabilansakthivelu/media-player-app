@@ -2,7 +2,7 @@
     @apply fixed bottom-0 h-12 sm:h-16 bg-gray-500 w-full 
 }
 .largeScreen{
-    @apply float-left h-full fixed w-20 bg-gray-500 lg:w-28
+    @apply float-left h-full fixed w-20 bg-gray-600 lg:w-28
 }
 .header{
     @apply hidden md:block text-white text-xl lg:text-2xl text-center pt-4

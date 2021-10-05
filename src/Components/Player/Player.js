@@ -26,12 +26,13 @@ const Player = (props) => {
     }
 
     useEffect(()=>{
+        if(songsList){
         if(showPlayer){
         document.getElementById('playButton').play();
         document.getElementById('pauseBtn').style.display = "block";
         document.getElementById('playBtn').style.display = "none";
         document.getElementById('playButton').addEventListener('ended', nextTrack);
-        if(nowPlayingSongId === 12){
+        if(nowPlayingSongId === songsList.length){
             nextUpFinder = 1;
             nextUpSong = songsList.find((song)=>{
             return song.id === nextUpFinder;
@@ -45,6 +46,7 @@ const Player = (props) => {
             return song.id === nextUpFinder;
             })
             setNextUpTitle(nextUpSong.title);
+        }
         }
         }
     },[nowPlaying])
@@ -70,7 +72,7 @@ const Player = (props) => {
     }
 
     const nextTrack = () =>{
-        if(nowPlayingSongId === 12){
+        if(nowPlayingSongId === songsList.length){
             setNowPlayingSongId(1)
         }else{
         setNowPlayingSongId(nowPlayingSongId + 1)
@@ -80,6 +82,7 @@ const Player = (props) => {
     return (
         <div>
         {nowPlaying ? (
+        <div className="musicPlayerSection">
         <div className="musicPlayer">
             <div className="playerHeader">
             <BiArrowBack className="backArrow" onClick={()=>{setShowPlayer(false)}}/>
@@ -89,7 +92,7 @@ const Player = (props) => {
             <h1 className="playerSongTitle">{nowPlaying.title}</h1>
             <h1 className="playerSongArtist">{nowPlaying.artists}</h1>
 
-            <audio src={nowPlaying.source} id="playButton" controls></audio>
+            <audio src={nowPlaying.source} id="playButton"></audio>
 
             <div className="playerIcons">
             <AiFillStepBackward className="playerIconsInd" onClick={previousTrack}/>
@@ -99,7 +102,7 @@ const Player = (props) => {
             </div>
 
             <h1 className="nextUp">Next up: {nextUpTitle}</h1>
-
+        </div>
         </div>)
         :
         ""
