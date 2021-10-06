@@ -5,6 +5,7 @@ import {AiFillStepBackward, AiFillStepForward, AiOutlineHeart, AiFillHeart} from
 import {GiSpeaker, GiSpeakerOff} from 'react-icons/gi';
 import {ValuesContext} from '../../App';
 import {toast} from 'react-toastify';
+import {db, auth} from '../../firebase';
 import './Player.css';
 
 toast.configure();
@@ -24,8 +25,6 @@ const Player = (props) => {
     const [nextUpTitle, setNextUpTitle] = useState();
 
     const [showSpeaker, setShowSpeaker] = useState(false);
-
-    const [isFavorite, setIsFavorite] = useState(false);
      
     if(songsList !== undefined){
      nowPlaying = songsList.find((song)=>{
@@ -146,14 +145,25 @@ const Player = (props) => {
         audio.muted = false;
     }
 
-    const setFavorite = () =>{
-        setIsFavorite(true);
+    const setFavorite = (id, title, artists, imageURL, source, duration) =>{
+        document.getElementById('outlineHeart').style.display = "none";
+        document.getElementById('filledHeart').style.display = "block";
         toast.success("Song added to favorites list", {position: toast.POSITION.TOP_CENTER});
+        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').doc(title).set({
+            id,
+            title,
+            artists,
+            imageURL,
+            source,
+            duration,
+        })
     }
 
-    const clearFavorite = () =>{
-        setIsFavorite(false);
+    const clearFavorite = (title) =>{
+        document.getElementById('outlineHeart').style.display = "block";
+        document.getElementById('filledHeart').style.display = "none";
         toast.success("Song removed from favorites list", {position: toast.POSITION.TOP_CENTER});
+        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').doc(title).delete();
     }
 
     return (
@@ -194,12 +204,8 @@ const Player = (props) => {
              <FaPlay className="playBtn" id="playBtn" onClick={playFn}/>
             <AiFillStepForward className="playerIconsInd" onClick={nextTrack}/>
 
-            {isFavorite 
-            ? 
-            (<AiFillHeart className="favorite" onClick={clearFavorite}/>)
-            :
-            (<AiOutlineHeart className="notFavorite" onClick={setFavorite}/>)
-            }
+            <AiFillHeart className="favorite" onClick={()=>{clearFavorite(nowPlaying.title)}} id="filledHeart"/>
+            <AiOutlineHeart className="notFavorite" id="outlineHeart" onClick={()=>{setFavorite(nowPlaying.id, nowPlaying.title, nowPlaying.artists, nowPlaying.imageURL, nowPlaying.source, nowPlaying.duration)}}/>
 
             </div>
 

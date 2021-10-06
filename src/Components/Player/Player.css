@@ -23,7 +23,7 @@
     @apply text-white text-lg text-center
 }
 .playerIcons{
-    @apply flex items-center justify-center space-x-7 mt-4 text-2xl
+    @apply flex items-center justify-center space-x-7 md:space-x-3 lg:space-x-7 mt-4 text-2xl
 }
 .playerIconsInd{
     @apply cursor-pointer 
@@ -38,7 +38,7 @@
     @apply text-sm flex space-x-2 items-center justify-center my-4 px-2
 }
 .progressBar{
-    @apply h-1 w-36 bg-gray-200 cursor-pointer
+    @apply h-1 w-44 bg-gray-200 cursor-pointer
 }
 .progressed{
     @apply h-full w-0 bg-green-600
@@ -48,4 +48,7 @@
 }
 .notFavorite, .favorite{
     @apply text-2xl cursor-pointer
+}
+.favorite{
+    @apply hidden
 }
