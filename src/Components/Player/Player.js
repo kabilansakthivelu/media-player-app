@@ -1,10 +1,13 @@
 import React, {useEffect, useContext, useState} from 'react';
 import {BiArrowBack} from 'react-icons/bi';
 import {FaPlay, FaPause} from 'react-icons/fa';
-import {AiFillStepBackward, AiFillStepForward} from 'react-icons/ai';
+import {AiFillStepBackward, AiFillStepForward, AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
 import {GiSpeaker, GiSpeakerOff} from 'react-icons/gi';
 import {ValuesContext} from '../../App';
+import {toast} from 'react-toastify';
 import './Player.css';
+
+toast.configure();
 
 const Player = (props) => {
 
@@ -21,6 +24,8 @@ const Player = (props) => {
     const [nextUpTitle, setNextUpTitle] = useState();
 
     const [showSpeaker, setShowSpeaker] = useState(false);
+
+    const [isFavorite, setIsFavorite] = useState(false);
      
     if(songsList !== undefined){
      nowPlaying = songsList.find((song)=>{
@@ -141,6 +146,16 @@ const Player = (props) => {
         audio.muted = false;
     }
 
+    const setFavorite = () =>{
+        setIsFavorite(true);
+        toast.success("Song added to favorites list", {position: toast.POSITION.TOP_CENTER});
+    }
+
+    const clearFavorite = () =>{
+        setIsFavorite(false);
+        toast.success("Song removed from favorites list", {position: toast.POSITION.TOP_CENTER});
+    }
+
     return (
         <div>
         {nowPlaying ? (
@@ -166,18 +181,26 @@ const Player = (props) => {
             </div>
 
             <div className="playerIcons">
-            
+
             {showSpeaker 
             ? 
-            (<GiSpeaker className="speakerOff" id="speakerOff" onClick={speakerOn}/>)
+            (<GiSpeaker className="speakerOff" onClick={speakerOn}/>)
             :
-            (<GiSpeakerOff className="speakerOn" id="speakerOn" onClick={speakerOff}/>)
+            (<GiSpeakerOff className="speakerOn" onClick={speakerOff}/>)
             }
 
             <AiFillStepBackward className="playerIconsInd" onClick={previousTrack}/>
             <FaPause className="playerIconsInd" id="pauseBtn" onClick={pauseFn}/>
              <FaPlay className="playBtn" id="playBtn" onClick={playFn}/>
             <AiFillStepForward className="playerIconsInd" onClick={nextTrack}/>
+
+            {isFavorite 
+            ? 
+            (<AiFillHeart className="favorite" onClick={clearFavorite}/>)
+            :
+            (<AiOutlineHeart className="notFavorite" onClick={setFavorite}/>)
+            }
+
             </div>
 
             <h1 className="nextUp">Next up: {nextUpTitle}</h1>

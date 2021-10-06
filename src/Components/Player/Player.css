@@ -46,3 +46,6 @@
 .speakerOn, .speakerOff{
     @apply text-3xl cursor-pointer
 }
+.notFavorite, .favorite{
+    @apply text-2xl cursor-pointer
+}
