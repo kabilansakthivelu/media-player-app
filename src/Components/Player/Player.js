@@ -47,6 +47,7 @@ const Player = (props) => {
             })
             setNextUpTitle(nextUpSong.title);
         }
+        document.getElementById('progressedTime').innerHTML = "0.00";
         }
         }
     },[nowPlaying])
@@ -79,6 +80,39 @@ const Player = (props) => {
         }
     }
 
+    let abc = 0.00;
+
+    const progressedMusic = (event) =>{
+        const audio = document.getElementById('playButton');
+        let timePlayed1 = audio.currentTime;
+        let timePlayed2 = timePlayed1.toString();
+        let timePlayed3 = timePlayed2.split(".");
+        let timePlayed = timePlayed3[0];
+        if (timePlayed < 10){
+        document.getElementById('progressedTime').innerHTML = `0:0${timePlayed}`;
+        }
+        else if((timePlayed >= 10) && (timePlayed <= 59))
+        {
+            document.getElementById('progressedTime').innerHTML = `0:${timePlayed}`;
+        }
+        else
+        {
+            let timePlayed4 = parseInt(timePlayed);
+            let minutes1 = timePlayed4/60;
+            let seconds = timePlayed4%60;
+            let minutes2 = minutes1.toString();
+            let minutes3 = minutes2.split(".");
+            let minutes = minutes3[0];
+            if (seconds < 10){
+             document.getElementById('progressedTime').innerHTML = `${minutes}:0${seconds}`;
+            }
+            else if((seconds >= 10) && (seconds <= 59))
+            {   
+            document.getElementById('progressedTime').innerHTML = `${minutes}:${seconds}`;
+            }
+        }
+    }
+
     return (
         <div>
         {nowPlaying ? (
@@ -92,7 +126,13 @@ const Player = (props) => {
             <h1 className="playerSongTitle">{nowPlaying.title}</h1>
             <h1 className="playerSongArtist">{nowPlaying.artists}</h1>
 
-            <audio src={nowPlaying.source} id="playButton"></audio>
+            <audio src={nowPlaying.source} id="playButton" onTimeUpdate={progressedMusic}></audio>
+
+            <div className="progressBarDiv">
+            <h1 id="progressedTime"></h1>
+            <div className="progressBar"></div>
+            <h1>{nowPlaying.duration}</h1>
+            </div>
 
             <div className="playerIcons">
             <AiFillStepBackward className="playerIconsInd" onClick={previousTrack}/>
