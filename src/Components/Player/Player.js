@@ -2,6 +2,7 @@ import React, {useEffect, useContext, useState} from 'react';
 import {BiArrowBack} from 'react-icons/bi';
 import {FaPlay, FaPause} from 'react-icons/fa';
 import {AiFillStepBackward, AiFillStepForward} from 'react-icons/ai';
+import {GiSpeaker, GiSpeakerOff} from 'react-icons/gi';
 import {ValuesContext} from '../../App';
 import './Player.css';
 
@@ -18,6 +19,8 @@ const Player = (props) => {
     let nextUpFinder;
 
     const [nextUpTitle, setNextUpTitle] = useState();
+
+    const [showSpeaker, setShowSpeaker] = useState(false);
      
     if(songsList !== undefined){
      nowPlaying = songsList.find((song)=>{
@@ -128,6 +131,16 @@ const Player = (props) => {
         audio.currentTime = ((e.nativeEvent.offsetX/progressBar.offsetWidth)*audio.duration);
     }
 
+    const speakerOff = () =>{
+        setShowSpeaker(true);
+        audio.muted = true;
+    }
+
+    const speakerOn = () =>{
+        setShowSpeaker(false);
+        audio.muted = false;
+    }
+
     return (
         <div>
         {nowPlaying ? (
@@ -153,6 +166,14 @@ const Player = (props) => {
             </div>
 
             <div className="playerIcons">
+            
+            {showSpeaker 
+            ? 
+            (<GiSpeaker className="speakerOff" id="speakerOff" onClick={speakerOn}/>)
+            :
+            (<GiSpeakerOff className="speakerOn" id="speakerOn" onClick={speakerOff}/>)
+            }
+
             <AiFillStepBackward className="playerIconsInd" onClick={previousTrack}/>
             <FaPause className="playerIconsInd" id="pauseBtn" onClick={pauseFn}/>
              <FaPlay className="playBtn" id="playBtn" onClick={playFn}/>

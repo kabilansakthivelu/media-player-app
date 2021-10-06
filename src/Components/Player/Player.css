@@ -43,3 +43,6 @@
 .progressed{
     @apply h-full w-0 bg-green-600
 }
+.speakerOn, .speakerOff{
+    @apply text-3xl cursor-pointer
+}
