@@ -5,7 +5,7 @@
     @apply md:border-2 md:border-red-500 md:bg-red-500 lg:mx-6 md:mt-8 lg:mt-24 md:pb-4 lg:pb-8 md:rounded-2xl
 }
 .playerHeader{
-    @apply flex items-center md:mt-6 lg:mt-10
+    @apply flex items-center mt-10 md:mt-6 lg:mt-10
 }
 .backArrow{
     @apply text-2xl md:hidden cursor-pointer
@@ -39,4 +39,7 @@
 }
 .progressBar{
     @apply h-1 w-36 bg-gray-200
+}
+.progressed{
+    @apply h-full w-0 bg-green-600
 }

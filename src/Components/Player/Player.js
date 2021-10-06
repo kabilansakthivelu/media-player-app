@@ -80,9 +80,14 @@ const Player = (props) => {
         }
     }
 
-    let abc = 0.00;
-
     const progressedMusic = (event) =>{
+
+        let duration1 = document.getElementById('trackDuration').innerHTML;
+        let duration2 = duration1.split(":");
+        let duration3 = parseInt(duration2[0]*60);
+        let duration4 = parseInt(duration2[1]);
+        let duration = duration3 + duration4;
+
         const audio = document.getElementById('playButton');
         let timePlayed1 = audio.currentTime;
         let timePlayed2 = timePlayed1.toString();
@@ -111,6 +116,10 @@ const Player = (props) => {
             document.getElementById('progressedTime').innerHTML = `${minutes}:${seconds}`;
             }
         }
+
+        let timeProgressed = parseInt(timePlayed);
+        let calc = (timeProgressed / duration)*100;
+        document.getElementById('progressed').style.width = `${Math.round(calc)}%`;
     }
 
     return (
@@ -130,8 +139,11 @@ const Player = (props) => {
 
             <div className="progressBarDiv">
             <h1 id="progressedTime"></h1>
-            <div className="progressBar"></div>
-            <h1>{nowPlaying.duration}</h1>
+            <div className="progressBar">
+            <div className="progressed" id="progressed">
+            </div>
+            </div>
+            <h1 id="trackDuration">{nowPlaying.duration}</h1>
             </div>
 
             <div className="playerIcons">
