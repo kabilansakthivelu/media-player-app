@@ -25,6 +25,8 @@ const Player = (props) => {
     })
     }
 
+    const audio = document.getElementById('playButton');
+
     useEffect(()=>{
         if(songsList){
         if(showPlayer){
@@ -88,7 +90,6 @@ const Player = (props) => {
         let duration4 = parseInt(duration2[1]);
         let duration = duration3 + duration4;
 
-        const audio = document.getElementById('playButton');
         let timePlayed1 = audio.currentTime;
         let timePlayed2 = timePlayed1.toString();
         let timePlayed3 = timePlayed2.split(".");
@@ -122,6 +123,11 @@ const Player = (props) => {
         document.getElementById('progressed').style.width = `${Math.round(calc)}%`;
     }
 
+    const trackDurationAdjust = (e) =>{
+        let progressBar = document.getElementById('progressBar');
+        audio.currentTime = ((e.nativeEvent.offsetX/progressBar.offsetWidth)*audio.duration);
+    }
+
     return (
         <div>
         {nowPlaying ? (
@@ -139,7 +145,7 @@ const Player = (props) => {
 
             <div className="progressBarDiv">
             <h1 id="progressedTime"></h1>
-            <div className="progressBar">
+            <div className="progressBar" onClick={trackDurationAdjust} id="progressBar">
             <div className="progressed" id="progressed">
             </div>
             </div>

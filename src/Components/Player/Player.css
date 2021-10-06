@@ -17,7 +17,7 @@
     @apply w-40 h-44 lg:w-48 lg:h-52 rounded-lg mx-auto mt-7
 }
 .playerSongTitle{
-    @apply text-white text-center my-2 text-xl font-bold
+    @apply text-white text-center mb-2 text-xl font-bold mt-4
 }
 .playerSongArtist{
     @apply text-white text-lg text-center
@@ -35,10 +35,10 @@
     @apply text-center mt-6 text-lg
 }
 .progressBarDiv{
-    @apply text-sm flex space-x-2 items-center justify-center my-4
+    @apply text-sm flex space-x-2 items-center justify-center my-4 px-2
 }
 .progressBar{
-    @apply h-1 w-36 bg-gray-200
+    @apply h-1 w-36 bg-gray-200 cursor-pointer
 }
 .progressed{
     @apply h-full w-0 bg-green-600

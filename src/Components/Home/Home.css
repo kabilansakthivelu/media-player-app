@@ -8,7 +8,7 @@
     @apply flex flex-col md:flex-row md:flex-wrap items-center pt-4 md:justify-evenly md:ml-20 pl-8
 }
 .songImage{
-    @apply w-40 h-40 lg:w-48 lg:h-56 rounded-lg cursor-pointer
+    @apply w-40 h-44 lg:w-48 lg:h-56 rounded-lg cursor-pointer
 }
 .singleSong{
     @apply md:mx-2
