@@ -11,20 +11,7 @@ const Home = () => {
 
     const [user] = useAuthState(auth);
 
-    const {showPlayer, setShowPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer} = useContext(ValuesContext);
-
-    const [songsList, setSongsList] = useState();
-
-    useEffect(()=>{
-        setShowPlayer(false);
-        db.collection('songs').onSnapshot((snapshot)=>{
-        const arr = [];
-        snapshot.forEach((doc)=>{
-            arr.push(doc.data());
-        })
-        setSongsList(arr);
-        })      
-    },[])
+    const {songsList, showPlayer, setShowPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer} = useContext(ValuesContext);
 
     useEffect(()=>{
         if(user){

@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {AiFillHome, AiFillHeart, AiOutlineLogout} from 'react-icons/ai';
-import {BiHeadphone} from 'react-icons/bi';
+import {AiFillHome, AiFillHeart, AiOutlineLogout, AiOutlineSearch} from 'react-icons/ai';
 import {Link, useHistory} from 'react-router-dom';
 import {auth} from '../../firebase';
 import {toast} from 'react-toastify';
@@ -51,7 +50,7 @@ const Navbar = () => {
         <h1 className="header">Music World</h1>
         <div className="navbar-icons">
             <Link id="1" to="/"><AiFillHome onClick={()=>{navbarIconSelected(document.getElementById(1).id)}}/></Link>
-            <Link id="2" to="/playlists"><BiHeadphone onClick={()=>{navbarIconSelected(document.getElementById(2).id)}}/></Link>
+            <Link id="2" to="/search"><AiOutlineSearch onClick={()=>{navbarIconSelected(document.getElementById(2).id)}}/></Link>
             <Link id="3" to="/favorites"><AiFillHeart onClick={()=>{navbarIconSelected(document.getElementById(3).id)}}/></Link>
             <AiOutlineLogout onClick={logOut}/>
         </div>

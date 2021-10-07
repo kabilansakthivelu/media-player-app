@@ -1,0 +1,12 @@
+.searchInputDiv{
+    @apply text-center
+}
+.searchInput{
+    @apply w-60 md:w-96 h-10 md:h-12 pl-4 rounded-xl outline-none
+}
+.searchResultsDiv{
+    @apply bg-white mx-auto mt-1 w-60 md:w-96 h-40 md:h-40 pl-4 rounded-xl overflow-hidden overflow-y-scroll
+}
+.trackName{
+    @apply my-2 hover:bg-gray-200 cursor-pointer py-2
+}
