@@ -2,7 +2,7 @@
     @apply text-center
 }
 .searchInput{
-    @apply w-60 md:w-96 h-10 md:h-12 pl-4 rounded-xl outline-none
+    @apply w-60 md:w-96 h-10 md:h-12 pl-4 rounded-xl outline-none mt-10
 }
 .searchResultsDiv{
     @apply bg-white mx-auto mt-1 w-60 md:w-96 h-40 md:h-40 pl-4 rounded-xl overflow-hidden overflow-y-scroll
@@ -12,4 +12,10 @@
 }
 .resultsDisplay{
     @apply flex flex-col items-center pt-4 justify-center
+}
+.resultHeading{
+    @apply text-white text-center md:text-xl my-4
+}
+.searchPageDescription{
+    @apply text-white mx-auto md:text-xl lg:text-2xl mt-6
 }

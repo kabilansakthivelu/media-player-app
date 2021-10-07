@@ -5,7 +5,10 @@ import {ValuesContext} from '../../App';
 import {db, auth} from '../../firebase';
 import SignIn from '../SignIn/SignIn';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import './Search.css'
+import {toast} from 'react-toastify';
+import './Search.css';
+
+toast.configure();
 
 const Search = () => {
 
@@ -15,7 +18,7 @@ const Search = () => {
 
     const [searchList, setSearchList] = useState();
 
-    const [searchResult, setSearchResult] = useState();
+    const [searchResult, setSearchResult] = useState([]);
     
     const searchResultClicked = (id) =>{
         setShowPlayer(false);
@@ -28,8 +31,10 @@ const Search = () => {
             return doc.id === id;
         })
         arr1[0].id = 1;
+        document.getElementById('searchInput').value = arr1[0].title;
         setSearchList(arr1);
-        })       
+        })     
+        setSearchResult([]);  
     }
 
     useEffect(()=>{
@@ -37,9 +42,34 @@ const Search = () => {
     },[])
 
     const searchInput = async(e) =>{
+        let searchKey = e.target.value;
+        if(searchKey === ""){
+           setSearchResult([]); 
+        }else{
         setSearchResult(songsList.filter((song)=>{
-            return song.title.toLowerCase().includes(e.target.value.toLowerCase());
+            return song.title.toLowerCase().includes(searchKey.toLowerCase());
         }))
+        }
+    }
+
+    const searchSubmit = (e) =>{
+        e.preventDefault();
+        let searchKey = document.getElementById('searchInput').value;
+        const ans = songsList.find((song)=>{
+            return song.title.toLowerCase() === searchKey.toLowerCase();
+        })
+        if(ans === undefined){
+                setSearchResult([]);
+                toast.warning("Enter a valid track name or choose from the suggestions", {position: toast.POSITION.TOP_CENTER})
+            }
+            else{
+                let arr1 = [];
+                arr1.push(ans);
+                arr1[0].id = 1;
+                document.getElementById('searchInput').value = arr1[0].title;
+                setSearchList(arr1);
+                setSearchResult([]); 
+            }
     }
 
     return (
@@ -50,10 +80,11 @@ const Search = () => {
             <div className="favoritesSection" id="songsSection">
             <h1 className="sectionTitle">Search</h1>
 
-            <div className="searchInputDiv">
-                <input className="searchInput" type="text" placeholder="Enter track name..." onChange={searchInput}/>
-            </div>
-
+            <form onSubmit={searchSubmit} className="searchInputDiv">
+                <input className="searchInput" id="searchInput" type="text" placeholder="Enter track name..." onChange={searchInput}/>
+            </form>
+            
+            {(searchResult.length !== 0) &&
             <div className="searchResultsDiv">
             {searchResult && searchResult.map((song)=>{
                 return (
@@ -63,16 +94,17 @@ const Search = () => {
                 )
             })}
             </div>
-
+            }
 
             <div className="resultsDisplay" id="songDisplay">
             
-            {searchList &&
-            ((searchList.length !== 0)
+            {(searchList &&
+            (searchList.length !== 0))
             ?
             (searchList.map((song)=>{
                 return(
                     <div key={song.id} className="singleSong">
+                    <h1 className="resultHeading">Search result</h1>
                     <img src={song.imageURL} alt="" className="songImage" onClick={()=>{openPlayer(song.id)}}/>
                     <div className="songInfo">
                     <h1 className="songTitle">{song.title}</h1>
@@ -82,8 +114,7 @@ const Search = () => {
                 )
             }))
             :
-            (<h1 className="sectionDescription">You don't have any songs marked as favorites</h1>)
-            )
+            (<h1 className="searchPageDescription">Enter the track name to find your desired song...</h1>)
             }
 
             </div>
