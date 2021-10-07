@@ -14,8 +14,11 @@ const Search = () => {
     const {songsList, showPlayer, setShowPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer} = useContext(ValuesContext);
 
     const [searchList, setSearchList] = useState();
+
+    const [searchResult, setSearchResult] = useState();
     
     const searchResultClicked = (id) =>{
+        setShowPlayer(false);
         db.collection('songs').get().then((snapshot)=>{
         const arr = [];
         snapshot.forEach((doc)=>{
@@ -33,6 +36,12 @@ const Search = () => {
         setShowPlayer(false);
     },[])
 
+    const searchInput = async(e) =>{
+        setSearchResult(songsList.filter((song)=>{
+            return song.title.toLowerCase().includes(e.target.value.toLowerCase());
+        }))
+    }
+
     return (
         <div>
             {user ? (
@@ -42,11 +51,11 @@ const Search = () => {
             <h1 className="sectionTitle">Search</h1>
 
             <div className="searchInputDiv">
-                <input className="searchInput" type="text" placeholder="Enter track name..." />
+                <input className="searchInput" type="text" placeholder="Enter track name..." onChange={searchInput}/>
             </div>
 
             <div className="searchResultsDiv">
-            {songsList && songsList.map((song)=>{
+            {searchResult && searchResult.map((song)=>{
                 return (
                 <div key={song.id}>
                 <h1 className="trackName" onClick={()=>{searchResultClicked(song.id)}}>{song.title}</h1>
@@ -56,7 +65,7 @@ const Search = () => {
             </div>
 
 
-            <div className="songsDisplay" id="songDisplay">
+            <div className="resultsDisplay" id="songDisplay">
             
             {searchList &&
             ((searchList.length !== 0)

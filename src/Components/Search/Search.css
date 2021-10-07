@@ -10,3 +10,6 @@
 .trackName{
     @apply my-2 hover:bg-gray-200 cursor-pointer py-2
 }
+.resultsDisplay{
+    @apply flex flex-col items-center pt-4 justify-center
+}
