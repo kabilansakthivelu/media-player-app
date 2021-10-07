@@ -44,10 +44,14 @@ const Favorites = () => {
             {user ? (
             <div> 
             <Navbar/>
-            <div className="songsSection" id="songsSection">
+            <div className="favoritesSection" id="songsSection">
             <h1 className="sectionTitle">Favorites</h1>
             <div className="favoritesDisplay" id="songDisplay">
-            {favoritesList && favoritesList.map((song)=>{
+
+            {favoritesList &&
+            ((favoritesList.length !== 0)
+            ?
+            (favoritesList.map((song)=>{
                 return(
                     <div key={song.id} className="singleSong">
                     <img src={song.imageURL} alt="" className="songImage" onClick={()=>{openPlayer(song.id)}}/>
@@ -57,7 +61,12 @@ const Favorites = () => {
                     </div>
                     </div>
                 )
-            })}
+            }))
+            :
+            (<h1 className="sectionDescription">You don't have any songs marked as favorites</h1>)
+            )
+            }
+
             </div>
             </div>
             {showPlayer && <Player songsList={favoritesList} nowPlayingSongId={nowPlayingSongId} setNowPlayingSongId={setNowPlayingSongId}/>}

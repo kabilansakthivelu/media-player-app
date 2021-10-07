@@ -36,7 +36,7 @@ const Player = (props) => {
 
     useEffect(()=>{
         if(songsList){
-        if(showPlayer){
+        if(showPlayer && (nowPlaying !== undefined)){
         document.getElementById('playButton').play();
         document.getElementById('pauseBtn').style.display = "block";
         document.getElementById('playBtn').style.display = "none";
@@ -58,7 +58,8 @@ const Player = (props) => {
         }
         document.getElementById('progressedTime').innerHTML = "0.00";
 
-        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').onSnapshot((snapshot)=>{
+        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').get
+        ().then((snapshot)=>{
             const arr = [];
             snapshot.forEach((doc)=>{
                 arr.push(doc.data());
@@ -169,14 +170,14 @@ const Player = (props) => {
         document.getElementById('filledHeart').style.display = "block";
         toast.success("Song added to favorites list", {position: toast.POSITION.TOP_CENTER});
 
-        await db.collection('favorites').doc(auth.currentUser.uid).collection('songs').onSnapshot((snapshot)=>{
+        await db.collection('favorites').doc(auth.currentUser.uid).collection('songs').get().then((snapshot)=>{
             const arr = [];
             snapshot.forEach((doc)=>{
                 arr.push(doc.data());
             })
         
         db.collection('favorites').doc(auth.currentUser.uid).collection('songs').doc(title).set({
-            id: arr.length,
+            id: arr.length+1,
             title,
             artists,
             imageURL,
@@ -186,11 +187,34 @@ const Player = (props) => {
         })
     }
 
-    const clearFavorite = (title) =>{
+    const clearFavorite = async(title) =>{
         document.getElementById('outlineHeart').style.display = "block";
         document.getElementById('filledHeart').style.display = "none";
         toast.success("Song removed from favorites list", {position: toast.POSITION.TOP_CENTER});
-        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').doc(title).delete();
+        await db.collection('favorites').doc(auth.currentUser.uid).collection('songs').doc(title).delete();
+
+        await db.collection('favorites').doc(auth.currentUser.uid).collection('songs').onSnapshot((snapshot)=>{
+            const arr = [];
+            snapshot.forEach((doc)=>{
+                arr.push(doc.data());
+            })
+        
+        if(arr !== []){
+        let idNumber = 0;
+        arr.map((song)=>{
+        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').doc(song.title).set({
+            id: idNumber+1,
+            title: song.title,
+            artists: song.artists,
+            imageURL: song.imageURL,
+            source: song.source,
+            duration: song.duration,
+        })
+        idNumber += 1;
+        })
+        }
+        })
+        await setShowPlayer(false);
     }
 
     return (
