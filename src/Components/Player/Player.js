@@ -57,6 +57,25 @@ const Player = (props) => {
             setNextUpTitle(nextUpSong.title);
         }
         document.getElementById('progressedTime').innerHTML = "0.00";
+
+        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').onSnapshot((snapshot)=>{
+            const arr = [];
+            snapshot.forEach((doc)=>{
+                arr.push(doc.data());
+            })
+            const alreadyFavorite = arr.find((song)=>{
+                return song.title === nowPlaying.title;
+            })
+            if(alreadyFavorite === undefined){
+                document.getElementById('outlineHeart').style.display = "block";
+                document.getElementById('filledHeart').style.display = "none";
+            }else
+            {
+                document.getElementById('outlineHeart').style.display = "none";
+                document.getElementById('filledHeart').style.display = "block";
+            }
+        })  
+
         }
         }
     },[nowPlaying])
@@ -145,17 +164,25 @@ const Player = (props) => {
         audio.muted = false;
     }
 
-    const setFavorite = (id, title, artists, imageURL, source, duration) =>{
+    const setFavorite = async(id, title, artists, imageURL, source, duration) =>{
         document.getElementById('outlineHeart').style.display = "none";
         document.getElementById('filledHeart').style.display = "block";
         toast.success("Song added to favorites list", {position: toast.POSITION.TOP_CENTER});
+
+        await db.collection('favorites').doc(auth.currentUser.uid).collection('songs').onSnapshot((snapshot)=>{
+            const arr = [];
+            snapshot.forEach((doc)=>{
+                arr.push(doc.data());
+            })
+        
         db.collection('favorites').doc(auth.currentUser.uid).collection('songs').doc(title).set({
-            id,
+            id: arr.length,
             title,
             artists,
             imageURL,
             source,
             duration,
+        })
         })
     }
 

@@ -14,10 +14,16 @@ function App() {
   const refEmail = useRef();
   const refPassword = useRef();
   const [showPlayer, setShowPlayer] = useState(false);
+  const [nowPlayingSongId, setNowPlayingSongId] = useState();
+
+  const openPlayer = (id) =>{
+        setShowPlayer(true);
+        setNowPlayingSongId(id);
+  }
 
   return (
     <Router>
-     <ValuesContext.Provider value={{refEmail, refPassword, showPlayer, setShowPlayer}}>
+     <ValuesContext.Provider value={{refEmail, refPassword, showPlayer, setShowPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer}}>
       <Switch>
         <Route path="/signin">
           <SignIn/>

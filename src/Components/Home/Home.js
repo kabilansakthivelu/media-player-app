@@ -11,11 +11,9 @@ const Home = () => {
 
     const [user] = useAuthState(auth);
 
-    const {showPlayer, setShowPlayer} = useContext(ValuesContext);
+    const {showPlayer, setShowPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer} = useContext(ValuesContext);
 
     const [songsList, setSongsList] = useState();
-
-    const [nowPlayingSongId, setNowPlayingSongId] = useState();
 
     useEffect(()=>{
         setShowPlayer(false);
@@ -27,11 +25,6 @@ const Home = () => {
         setSongsList(arr);
         })      
     },[])
-
-    const openPlayer = (id) =>{
-        setShowPlayer(true);
-        setNowPlayingSongId(id);
-    }
 
     useEffect(()=>{
         if(user){

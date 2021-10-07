@@ -1,0 +1,3 @@
+.favoritesDisplay{
+    @apply flex flex-col md:flex-row md:flex-wrap items-center pt-4 md:justify-start md:ml-20 pl-8
+}
