@@ -152,7 +152,12 @@ const Player = (props) => {
 
     const trackDurationAdjust = (e) =>{
         let progressBar = document.getElementById('progressBar');
+        try{
         audio.currentTime = ((e.nativeEvent.offsetX/progressBar.offsetWidth)*audio.duration);
+        }
+        catch{
+            toast.warning("Please wait for the audio track to load", {position: toast.POSITION.TOP_CENTER})
+        }
     }
 
     const speakerOff = () =>{

@@ -68,7 +68,8 @@ const Search = () => {
                 arr1[0].id = 1;
                 document.getElementById('searchInput').value = arr1[0].title;
                 setSearchList(arr1);
-                setSearchResult([]); 
+                setSearchResult([]);
+                setShowPlayer(false); 
             }
     }
 
