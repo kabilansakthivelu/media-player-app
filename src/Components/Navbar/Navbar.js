@@ -38,7 +38,7 @@ const Navbar = () => {
 
     return (
         <div className={screen}>
-        <h1 className="header">Music World</h1>
+        <h1 className="header" onClick={()=>history.push("/")}>Music World</h1>
         <div className="navbar-icons">
             <Link id="1" to="/"><AiFillHome/></Link>
             <Link id="2" to="/search"><AiOutlineSearch/></Link>

@@ -6,7 +6,7 @@ import Home from './Components/Home/Home';
 import Search from './Components/Search/Search';
 import Favorites from './Components/Favorites/Favorites';
 import Error from './Components/Error';
-import {db, auth} from './firebase';
+import {db} from './firebase';
 
 export const ValuesContext = React.createContext();
 

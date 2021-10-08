@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import Navbar from '../Navbar/Navbar';
-import {db, auth} from '../../firebase';
+import {auth} from '../../firebase';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import SignIn from '../SignIn/SignIn';
 import Player from '../Player/Player';
@@ -11,7 +11,7 @@ const Home = () => {
 
     const [user] = useAuthState(auth);
 
-    const {songsList, showPlayer, setShowPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer} = useContext(ValuesContext);
+    const {songsList, showPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer} = useContext(ValuesContext);
 
     useEffect(()=>{
         if(user){
