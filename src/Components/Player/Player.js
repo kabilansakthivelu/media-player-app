@@ -200,10 +200,10 @@ const Player = (props) => {
             })
         
         if(arr !== []){
-        let idNumber = 0;
+        let idNumber = 1;
         arr.map((song)=>{
         db.collection('favorites').doc(auth.currentUser.uid).collection('songs').doc(song.title).set({
-            id: idNumber+1,
+            id: idNumber,
             title: song.title,
             artists: song.artists,
             imageURL: song.imageURL,

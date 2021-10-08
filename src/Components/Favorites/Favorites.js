@@ -15,6 +15,8 @@ const Favorites = () => {
 
     const [favoritesList, setFavoritesList] = useState();
 
+    const [favoritesList1, setFavoritesList1] = useState();
+
      useEffect(()=>{
          if(user){
         setShowPlayer(false);
@@ -24,6 +26,13 @@ const Favorites = () => {
                 arr.push(doc.data());
             })
             setFavoritesList(arr);
+        })
+        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').get().then((snapshot)=>{
+            const arr = [];
+            snapshot.forEach((doc)=>{
+                arr.push(doc.data());
+            })
+            setFavoritesList1(arr);
         })  
          }
     },[user])
@@ -35,9 +44,30 @@ const Favorites = () => {
         }
         else{
             document.getElementById('songsSection').style.width = "100%";
-        }
-        }
+            test()
+        }}
     },[showPlayer])
+
+    const test = () =>{
+    if(showPlayer === false){
+        db.collection('favorites').doc(auth.currentUser.uid).collection('songs').onSnapshot((snapshot)=>{
+            const arr = [];
+            snapshot.forEach((doc)=>{
+                arr.push(doc.data());
+            })
+            const arr1 = arr.map((doc)=>{
+                return doc.title;
+            })
+            const arr2 = favoritesList1.filter((song)=>{
+                    return arr1.includes(song.title);
+                })
+            for(let i=0; i<arr2.length; i++){
+                arr2[i].id = i+1;
+            }
+            setFavoritesList1(arr2);
+        })
+    }
+    }
 
     return (
         <div>
@@ -69,7 +99,7 @@ const Favorites = () => {
 
             </div>
             </div>
-            {showPlayer && <Player songsList={favoritesList} nowPlayingSongId={nowPlayingSongId} setNowPlayingSongId={setNowPlayingSongId}/>}
+            {showPlayer && <Player songsList={favoritesList1} nowPlayingSongId={nowPlayingSongId} setNowPlayingSongId={setNowPlayingSongId}/>}
             </div>
             )
             :
