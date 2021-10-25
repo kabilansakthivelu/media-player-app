@@ -16,26 +16,26 @@ const Search = () => {
 
     const {songsList, showPlayer, setShowPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer} = useContext(ValuesContext);
 
-    const [searchList, setSearchList] = useState();
+    //const [searchList, setSearchList] = useState();
 
     const [searchResult, setSearchResult] = useState([]);
     
-    const searchResultClicked = (id) =>{
-        setShowPlayer(false);
-        db.collection('songs').get().then((snapshot)=>{
-        const arr = [];
-        snapshot.forEach((doc)=>{
-            arr.push(doc.data());
-        })
-        const arr1 = arr.filter((doc)=>{
-            return doc.id === id;
-        })
-        arr1[0].id = 1;
-        document.getElementById('searchInput').value = arr1[0].title;
-        setSearchList(arr1);
-        })     
-        setSearchResult([]);  
-    }
+    // const searchResultClicked = (id) =>{
+    //     setShowPlayer(false);
+    //     db.collection('songs').get().then((snapshot)=>{
+    //     const arr = [];
+    //     snapshot.forEach((doc)=>{
+    //         arr.push(doc.data());
+    //     })
+    //     const arr1 = arr.filter((doc)=>{
+    //         return doc.id === id;
+    //     })
+    //     arr1[0].id = 1;
+    //     document.getElementById('searchInput').value = arr1[0].title;
+    //     setSearchList(arr1);
+    //     })     
+    //     setSearchResult([]);  
+    // }
 
     useEffect(()=>{
         setShowPlayer(false);
@@ -55,20 +55,20 @@ const Search = () => {
     const searchSubmit = (e) =>{
         e.preventDefault();
         let searchKey = document.getElementById('searchInput').value;
-        const ans = songsList.find((song)=>{
-            return song.title.toLowerCase() === searchKey.toLowerCase();
+        const ans = songsList.filter((song)=>{
+            return song.title.toLowerCase().includes(searchKey.toLowerCase());
         })
-        if(ans === undefined){
-                setSearchResult([]);
+        if(ans === []){
+                setSearchResult(0);
                 toast.warning("Enter a valid track name or choose from the suggestions", {position: toast.POSITION.TOP_CENTER})
             }
             else{
-                let arr1 = [];
-                arr1.push(ans);
-                arr1[0].id = 1;
-                document.getElementById('searchInput').value = arr1[0].title;
-                setSearchList(arr1);
-                setSearchResult([]);
+                // let arr1 = [];
+                // arr1.push(ans);
+                // arr1[0].id = 1;
+                // document.getElementById('searchInput').value = arr1[0].title;
+                //setSearchList(arr1);
+                setSearchResult(ans);
                 setShowPlayer(false); 
             }
     }
@@ -120,7 +120,7 @@ const Search = () => {
             }
 
             </div>
-            {showPlayer && <Player songsList={searchList} nowPlayingSongId={nowPlayingSongId} setNowPlayingSongId={setNowPlayingSongId}/>}
+            {showPlayer && <Player songsList={searchResult} nowPlayingSongId={nowPlayingSongId} setNowPlayingSongId={setNowPlayingSongId}/>}
             </div>
             )
             :
