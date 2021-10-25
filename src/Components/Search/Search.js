@@ -84,7 +84,7 @@ const Search = () => {
             <form onSubmit={searchSubmit} className="searchInputDiv">
                 <input className="searchInput" id="searchInput" type="text" placeholder="Enter track name..." onChange={searchInput}/>
             </form>
-            
+{/*             
             {(searchResult.length !== 0) &&
             <div className="searchResultsDiv">
             {searchResult && searchResult.map((song)=>{
@@ -95,17 +95,17 @@ const Search = () => {
                 )
             })}
             </div>
-            }
+            } */}
 
-            <div className="resultsDisplay" id="songDisplay">
+            {searchResult.length !== 0 && <h1 className="resultHeading">Search result/s</h1>}
             
-            {(searchList &&
-            (searchList.length !== 0))
+            {(searchResult &&
+            (searchResult.length !== 0))
             ?
-            (searchList.map((song)=>{
+            (<div className="resultsDisplay" id="songDisplay">
+                {searchResult.map((song)=>{
                 return(
                     <div key={song.id} className="singleSong">
-                    <h1 className="resultHeading">Search result</h1>
                     <img src={song.imageURL} alt="" className="songImage" onClick={()=>{openPlayer(song.id)}}/>
                     <div className="songInfo">
                     <h1 className="songTitle">{song.title}</h1>
@@ -113,12 +113,12 @@ const Search = () => {
                     </div>
                     </div>
                 )
-            }))
+            })}
+            </div>)
             :
             (<h1 className="searchPageDescription">Enter the track name to find your desired song...</h1>)
             }
 
-            </div>
             </div>
             {showPlayer && <Player songsList={searchList} nowPlayingSongId={nowPlayingSongId} setNowPlayingSongId={setNowPlayingSongId}/>}
             </div>
