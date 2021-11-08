@@ -16,39 +16,28 @@ const Search = () => {
 
     const {songsList, showPlayer, setShowPlayer, nowPlayingSongId, setNowPlayingSongId, openPlayer} = useContext(ValuesContext);
 
-    //const [searchList, setSearchList] = useState();
-
     const [searchResult, setSearchResult] = useState([]);
-    
-    // const searchResultClicked = (id) =>{
-    //     setShowPlayer(false);
-    //     db.collection('songs').get().then((snapshot)=>{
-    //     const arr = [];
-    //     snapshot.forEach((doc)=>{
-    //         arr.push(doc.data());
-    //     })
-    //     const arr1 = arr.filter((doc)=>{
-    //         return doc.id === id;
-    //     })
-    //     arr1[0].id = 1;
-    //     document.getElementById('searchInput').value = arr1[0].title;
-    //     setSearchList(arr1);
-    //     })     
-    //     setSearchResult([]);  
-    // }
 
     useEffect(()=>{
         setShowPlayer(false);
     },[])
 
     const searchInput = async(e) =>{
+        setShowPlayer(false);
         let searchKey = e.target.value;
         if(searchKey === ""){
            setSearchResult([]); 
         }else{
-        setSearchResult(songsList.filter((song)=>{
+        let searchResult1 = songsList.filter((song)=>{
             return song.title.toLowerCase().includes(searchKey.toLowerCase());
-        }))
+        })
+        let num = 0;
+        searchResult1 = searchResult1.map((song)=>{
+            num++;
+            song.id = num;
+            return {...song};
+        })
+        setSearchResult(searchResult1)
         }
     }
 
@@ -58,19 +47,8 @@ const Search = () => {
         const ans = songsList.filter((song)=>{
             return song.title.toLowerCase().includes(searchKey.toLowerCase());
         })
-        if(ans === []){
-                setSearchResult(0);
-                toast.warning("Enter a valid track name or choose from the suggestions", {position: toast.POSITION.TOP_CENTER})
-            }
-            else{
-                // let arr1 = [];
-                // arr1.push(ans);
-                // arr1[0].id = 1;
-                // document.getElementById('searchInput').value = arr1[0].title;
-                //setSearchList(arr1);
                 setSearchResult(ans);
                 setShowPlayer(false); 
-            }
     }
 
     return (
@@ -84,18 +62,6 @@ const Search = () => {
             <form onSubmit={searchSubmit} className="searchInputDiv">
                 <input className="searchInput" id="searchInput" type="text" placeholder="Enter track name..." onChange={searchInput}/>
             </form>
-{/*             
-            {(searchResult.length !== 0) &&
-            <div className="searchResultsDiv">
-            {searchResult && searchResult.map((song)=>{
-                return (
-                <div key={song.id}>
-                <h1 className="trackName" onClick={()=>{searchResultClicked(song.id)}}>{song.title}</h1>
-                </div>
-                )
-            })}
-            </div>
-            } */}
 
             {searchResult.length !== 0 && <h1 className="resultHeading">Search result/s</h1>}
             
@@ -110,6 +76,7 @@ const Search = () => {
                     <div className="songInfo">
                     <h1 className="songTitle">{song.title}</h1>
                     <h1 className="songArtist">{song.artists}</h1>
+                    {console.log(searchResult)}
                     </div>
                     </div>
                 )
