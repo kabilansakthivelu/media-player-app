@@ -36,7 +36,7 @@ const Player = (props) => {
 
     useEffect(()=>{
         if(songsList){
-        if(showPlayer && (nowPlaying !== undefined)){
+        if((showPlayer === true) && (nowPlaying !== undefined)){
         document.getElementById('playButton').play();
         document.getElementById('pauseBtn').style.display = "block";
         document.getElementById('playBtn').style.display = "none";
@@ -76,7 +76,6 @@ const Player = (props) => {
                 document.getElementById('filledHeart').style.display = "block";
             }
         })  
-
         }
         }
     },[nowPlaying])
@@ -219,7 +218,7 @@ const Player = (props) => {
         })
         }
         })
-        await setShowPlayer(false);
+        //await setShowPlayer(false);
     }
 
     return (
