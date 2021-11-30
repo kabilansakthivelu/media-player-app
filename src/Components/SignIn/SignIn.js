@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+ import React, {useContext} from 'react';
 import {ValuesContext} from '../../App';
 import {FcGoogle} from 'react-icons/fc';
 import {AiOutlineMail, AiOutlineLock} from 'react-icons/ai';
@@ -50,14 +50,25 @@ const SignIn = () => {
         }
     }
 
+    const guestLogin = () =>{
+        const email = process.env.REACT_APP_Guest_Email;
+        const password = process.env.REACT_APP_Guest_Password;
+        firebase.auth().signInWithEmailAndPassword(email, password);
+        history.push("/");
+        toast.success(`Welcome back Guest, to the World of Music!!`, {position: toast.POSITION.TOP_CENTER});
+    }
+
     return (
         <div className="signInDiv">
             <div className="signInContent">
                 <h1 className="title">Music World</h1>
                 <h1 className="subTitle">Explore the world of music</h1>
+                <div className="googleSignInDiv" onClick={guestLogin}>
+                <h1 className="signInPageText">Guest Login</h1>
+                </div>
                 <div className="googleSignInDiv" onClick={googleSignIn}>
                 <FcGoogle className="googleIcon"/>
-                <h1>Continue with Google</h1>
+                <h1 className="signInPageText">Continue with Google</h1>
                 </div>
                 <p className="description">or</p>
 
